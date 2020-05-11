@@ -1,0 +1,305 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-16 16:44:39
+ * @LastEditTime: 2019-11-09 09:56:52
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>二马门窗招聘后台管理系统</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="robots" content="all,follow">
+	<!-- Bootstrap CSS-->
+	<link rel="stylesheet" th:href="@{/static/vendor/bootstrap/css/bootstrap.min.css}">
+	<!-- Font Awesome CSS-->
+	<link rel="stylesheet" th:href="@{/static/font-awesome/css/font-awesome.min.css}">
+	<!-- Fontastic Custom icon font-->
+	<link rel="stylesheet" th:href="@{/static/css/fontastic.css}">
+	<!-- Google fonts - Poppins -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+	<!-- theme stylesheet-->
+	<link rel="stylesheet" th:href="@{/static/css/style.default.css}" id="theme-stylesheet">
+	<!-- Custom stylesheet - for your changes-->
+	<link rel="stylesheet" th:href="@{/static/css/custom.css}">
+	<!-- Favicon-->
+	<link rel="shortcut icon" th:href="@{/static/img/favicon.ico}">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/bootstrap/css/toastr.min.css}">
+	<!-- Tweaks for older IEs-->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+
+<body>
+	<div class="page">
+		<!-- Main Navbar-->
+		<header class="header" id="index-navbar">
+			<nav class="navbar">
+				<!-- Search Box-->
+				<div class="search-box">
+					<button class="dismiss"><i class="icon-close"></i></button>
+					<form id="searchForm" action="#" role="search">
+						<input type="search" placeholder="What are you looking for..." class="form-control">
+					</form>
+				</div>
+				<div class="container-fluid">
+					<div class="navbar-holder d-flex align-items-center justify-content-between">
+						<!-- Navbar Header-->
+						<div class="navbar-header">
+							<!-- Navbar Brand -->
+							<a th:href="@{/index}" href="index.html" class="navbar-brand d-none d-sm-inline-block">
+								<div class="brand-text d-none d-lg-inline-block"><strong>二马门窗招聘后台管理系统</strong></div>
+								<div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>二马门窗招聘</strong></div>
+							</a>
+							<!-- Toggle Button-->
+							<a id="toggle-btn" href="#"
+								class="menu-btn active"><span></span><span></span><span></span></a>
+						</div>
+						<!-- Navbar Menu -->
+						<ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+							<li class="nav-item">
+								<a th:href="@{/logout}" href="login.html" class="nav-link logout">
+									<span class="d-none d-sm-inline">注销</span>
+									<i class="fa fa-sign-out"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<div class="page-content d-flex align-items-stretch">
+			<!-- Side Navbar -->
+			<nav class="side-navbar">
+				<!-- Sidebar Header-->
+				<div class="sidebar-header d-flex align-items-center">
+					<div class="avatar">
+						<img style="width: 55px;height: 55px;" th:src="@{/static/img/avatar-1.jpg}" alt="..."
+							class="img-fluid rounded-circle" th:if="${session.login_user.type=='1'}">
+						<img style="width: 55px;height: 55px;"
+							th:src="@{/sys/attachment/showPicOrAudio?attachmentId=} + ${session.login_user.logoimg[0]}"
+							alt="..." class="img-fluid rounded-circle" th:if="${session.login_user.type!='1'}">
+					</div>
+					<div class="title">
+						<h1 class="h4">[[${session.login_user.name}]]</h1>
+						<p>欢迎登陆</p>
+					</div>
+				</div>
+				<!-- Sidebar Navidation Menus-->
+				<!-- <span class="heading">Main</span> -->
+				<ul class="list-unstyled">
+					<!-- <li class="active" menus>
+					<a href="index.html">
+						<i class="icon-home"></i>
+						首页 
+					</a>
+				</li> -->
+					<li>
+						<a href="#dashboard-menu1" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-calendar-minus-o"></i>
+							轮播图管理
+						</a>
+						<ul id="dashboard-menu1" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/banner/list}" target="content_iframe">轮播图管理</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu2" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							职位分类管理
+						</a>
+						<ul id="dashboard-menu2" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/classify/input}" target="content_iframe">职位分类</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu3" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							费用管理
+						</a>
+						<ul id="dashboard-menu3" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/topPackage/input/1}" target="content_iframe">职位置顶费用</a>
+							</li>
+							<li menus>
+								<a th:href="@{/topPackage/input/2}" target="content_iframe">简历置顶费用</a>
+							</li>
+							<li menus>
+								<a th:href="@{/topPackage/input/3}" target="content_iframe">简历内推费用</a>
+							</li>
+							<li menus>
+								<a th:href="@{/topPackage/input/4}" target="content_iframe">刷新及下载单次费用</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu4" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							提现管理
+						</a>
+						<ul id="dashboard-menu4" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/withdraw/list}" target="content_iframe">提现列表</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu5" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							订单管理
+						</a>
+						<ul id="dashboard-menu5" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/order/list}" target="content_iframe">套餐购买记录</a>
+							</li>
+							<li menus>
+								<a th:href="@{/integralRecharge/list}" target="content_iframe">积分充值记录</a>
+							</li>
+							<li menus>
+								<a th:href="@{/integralRecord/list}" target="content_iframe">积分消费记录</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu6" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							分销管理
+						</a>
+						<ul id="dashboard-menu6" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/earnings/list}" target="content_iframe">分销记录</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu7" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							关于我们管理
+						</a>
+						<ul id="dashboard-menu7" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/aboutUs/input}" target="content_iframe">关于我们</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu8" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							会员套餐管理
+						</a>
+						<ul id="dashboard-menu8" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/resumePackage/list}" target="content_iframe">会员套餐列表</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu9" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							会员管理
+						</a>
+						<ul id="dashboard-menu9" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/register/list}" target="content_iframe">个人</a>
+							</li>
+						</ul>
+						<ul id="dashboard-menu9" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/register/list1}" target="content_iframe">企业</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu10" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							职位管理
+						</a>
+						<ul id="dashboard-menu10" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/job/list}" target="content_iframe">职位列表</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#dashboard-menu11" aria-expanded="false" data-toggle="collapse">
+							<i class="fa fa-bandcamp"></i>
+							同城求购管理
+						</a>
+						<ul id="dashboard-menu11" class="collapse list-unstyled ">
+							<li menus>
+								<a th:href="@{/buy/list}" target="content_iframe">同城求购列表</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			<div class="content-inner" id="content-inner">
+				<div id="index-content" class="content" style="padding-top: 0px;">
+					<iframe id="content_iframe" name="content_iframe" width="100%" frameborder="no" border="0"></iframe>
+				</div>
+				<!-- Page Footer-->
+				<footer class="main-footer" id="main-footer">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-6">
+								<!-- <p>Your company &copy; 2017-2019</p> -->
+							</div>
+							<div class="col-sm-6 text-right">
+								<p>二马门窗招聘</p>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+	<!-- JavaScript files-->
+	<script th:src="@{/static/jQuery/jQuery-2.2.0.min.js}"></script>
+	<script th:src="@{/static/jQuery/jquery-ext.js}"></script>
+	<script th:src="@{/static/vendor/popper.js/umd/popper.min.js}"> </script>
+	<script th:src="@{/static/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/prototype-ext.js}"></script>
+	<script th:src="@{/static/vendor/jquery.cookie/jquery.cookie.js}"> </script>
+	<script th:src="@{/static/vendor/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/static/js/charts-home.js}"></script>
+	<!-- Main File-->
+	<script th:src="@{/static/js/front.js}"></script>
+	<script th:src="@{/static/bootstrap/js/toastr.min.js}"></script>
+	<script type="text/javascript">
+		$(function () {
+			//var height_content = $(window).height() - $("#main-footer").height() - $("#index-navbar").height() - 60;
+			var height_content = $("#content-inner").height();
+			$("#index-content").height(height_content);
+			$("#content_iframe").height(height_content);
+			toastr.options = {
+				"closeButton": false, //是否显示关闭按钮
+				"debug": false, //是否使用debug模式
+				"positionClass": "toast-top-right",//弹出窗的位置
+				"showDuration": "300",//显示的动画时间
+				"hideDuration": "1000",//消失的动画时间
+				"timeOut": "5000", //展现时间
+				"extendedTimeOut": "1000",//加长展示时间
+				"showEasing": "swing",//显示时的动画缓冲方式
+				"hideEasing": "linear",//消失时的动画缓冲方式
+				"showMethod": "fadeIn",//显示时的动画方式
+				"hideMethod": "fadeOut" //消失时的动画方式
+			};
+		});
+		$(".list-unstyled li[menus]").click(function () {
+			$(".list-unstyled li[menus]").removeClass("active");
+			$(this).addClass("active");
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+.main {
+  background: #20293F;
+}
+.top {
+  width: 92%;
+  height: 4.66666667rem;
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: 0 0.06666667rem 0.06666667rem 0 rgba(0, 0, 0, 0.1);
+}
+.top p a {
+  color: #fff;
+  font-size: 0.4rem;
+  display: block;
+  height: 1.6rem;
+  line-height: 1.6rem;
+}
+.top .header .leftDesc {
+  float: left;
+}
+.top .header .leftDesc h2 {
+  font-size: 0.4rem;
+  color: #fff;
+}
+@media only screen and (min-width: 320px) and (max-width: 360px) {
+  .top .header .leftDesc h2 {
+    font-size: 0.37333333rem;
+  }
+  .top .header .leftDesc {
+    width: 80%;
+  }
+  .top .header .leftDesc p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+.top .header .leftDesc p {
+  color: #fff;
+  margin-top: 0.21333333rem;
+  font-size: 0.29333333rem;
+}
+.top .header .leftDesc .desc span {
+  color: #fff;
+  font-size: 0.29333333rem;
+}
+.top .header .leftDesc .desc span:first-child {
+  padding-right: 0.42666667rem;
+  border-right: 1px solid #fff;
+  margin-right: 0.42666667rem;
+}
+.top .header .right {
+  width: 1.73333333rem;
+  height: 1.73333333rem;
+  float: right;
+  border-radius: 0.13333333rem;
+  overflow: hidden;
+}
+.top .header .right img {
+  width: 100%;
+  display: block;
+}
+.content {
+  background: #fff;
+  border-top-left-radius: 0.32rem;
+  border-top-right-radius: 0.32rem;
+  padding-bottom: 0.4rem;
+}
+.content .tab {
+  text-align: center;
+  height: 1.13333333rem;
+  border-bottom: 1px solid #E2E2E2;
+}
+.content .tab > div {
+  font-size: 0.4rem;
+  margin-right: 0.77333333rem;
+  line-height: 1.14666667rem;
+  display: inline-block;
+  position: relative;
+}
+.content .tab > div:first-child {
+  margin-right: 2.34666667rem;
+}
+.content .tab .active {
+  color: #E8040A;
+}
+.content .tab .active .line {
+  display: block !important;
+}
+.content .tab .line {
+  position: absolute;
+  width: 0.4rem;
+  border-bottom: 3px solid #E8040A;
+  left: 50%;
+  margin-left: -0.17333333rem;
+  bottom: 0;
+  display: none;
+}
+.content .unit {
+  font-size: 0.4rem;
+}
+.content .padding {
+  padding: 0 0.4rem;
+}
+.content .txt {
+  margin-top: 0.37333333rem;
+}
+.content .txt p {
+  font-size: 0.32rem;
+  color: #6E6E6E;
+  line-height: 0.53333333rem;
+  text-indent: 0.4rem;
+}
+.content .txt img {
+  width:100%;
+  /* height: 3.68rem; */
+  display: block;
+}
+.content .info p {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  padding: 0 0.4rem;
+}
+.content .info p span {
+  font-size: 0.32rem;
+  float: left;
+}
+.content .info .name {
+  width: 25%;
+  color: #848484;
+}
+.content .info .unitName {
+  width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.content .listBox > div {
+  display: none;
+  margin-top: 0.74666667rem;
+}
+.content .listBox dl {
+  margin-top: 0.74666667rem;
+}
+.content .listBox .active {
+  display: block;
+}
+.content .listBox li {
+  padding: 0.4rem 0;
+  border-bottom: 0.01333333rem solid #f6f6f6;
+}
+.content .listBox .leftDesc {
+  float: left;
+}
+.content .listBox .leftDesc .desc {
+  margin-top: 0.4rem;
+}
+.content .listBox .leftDesc h2 {
+  font-size: 0.4rem;
+}
+.content .listBox .leftDesc span {
+  font-size: 0.26666667rem;
+  color: #848484;
+  padding-right: 0.26666667rem;
+  border-right: 1px solid #848484;
+  margin-right: 0.26666667rem;
+  float: left;
+}
+.content .listBox .leftDesc span:last-child {
+  border: none;
+}
+.content .listBox .right {
+  float: right;
+}
+.content .listBox .right p {
+  font-size: 0.4rem;
+  color: #E8040A;
+  text-align: right;
+}
+.content .listBox .right span {
+  font-size: 0.26666667rem;
+  color: #848484;
+  margin-top: 0.4rem;
+  display: block;
+  text-align: right;
+}

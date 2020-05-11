@@ -1,0 +1,146 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-30 17:16:09
+ * @LastEditTime: 2019-09-02 15:48:29
+ * @LastEditors: Please set LastEditors
+ -->
+<div th:fragment="footer" xmlns:th="http://www.thymeleaf.org">
+
+	<!-- 确认删除模态框（Modal） -->
+	<div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="margin-top: 150px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">删除</h4>
+				</div>
+				<div class="modal-body">您确定要删除吗？</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="deleteButton" type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<!-- 确认删除模态框（Modal） -->
+<!--	 <button type="button" onclick="location.reload();" style="position: fixed;top:0px;right:0px;">刷新</button>-->
+	<!-- jQuery 2.2.0 -->
+	<script th:src="@{/static/jQuery/jQuery-2.2.0.min.js}"></script>
+	<script th:src="@{/static/jQuery/jquery-ext.js}"></script>
+	<!-- Bootstrap 3.3.6 -->
+	<script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+
+	<!-- 扩展代码 -->
+	<script type="text/javascript" th:src="@{/static/js/prototype-ext.js}"></script>
+
+	<!-- bootstarp-日期时间选择控件 -->
+	<script type="text/javascript" th:src="@{/static/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/bootstrap/js/bootstrap-datetimepicker.zh-CN.js}"></script>
+
+	<!-- jqgrid -->
+	<script th:src="@{/static/jqgrid/js/jquery.jqGrid.js}"></script>
+	<script th:src="@{/static/jqgrid/js/jquery.jqGrid.extend.js}"></script>
+	<script th:src="@{/static/jqgrid/js/i18n/zh_CN.js}"></script>
+
+	<!-- 表单验证 -->
+	<!-- <script th:src="@{/static/bootstrap-validator/js/bootstrap-validator.js}"></script> -->
+	<script th:src="@{/static/bootstrap-validator/js/bootstrapValidator.js}"></script>
+
+	<!-- treeview -->
+	<script th:src="@{/static/bootstrap-treeview/bootstrap-treeview.min.js}"></script>
+
+	<!-- 提升框 -->
+	<script th:src="@{/static/bootstrap/js/toastr.min.js}"></script>
+
+	<!-- 上传 -->
+	<script th:src="@{/static/dropzone/js/dropzone.js}" charset="utf-8"></script>
+	<script th:src="@{/static/dropzone/js/jquery.dropzone.js}" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		var js = {
+			formatDateTime: function (timestamp) {
+				if (!timestamp) {
+					return "";
+				}
+				var date = new Date(timestamp);
+				Y = date.getFullYear() + '-';
+				M = (date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-';
+				D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+				h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+				m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+				s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+				return Y + M + D + h + m + s;
+			},
+			ajax: function (type, url, data, callback) {
+				var result = null;
+				jQuery.ajaxSetup({ cache: true });
+				jQuery.ajax({
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader('X-Requested-With', {
+							toString: function () {
+								return 'XMLHttpRequest';
+							}
+						});
+					},
+					async: false,
+					type: type,
+					url: url,
+					data: data,
+					dataType: 'json',
+					success: function (data) {
+						result = data;
+						if (callback) {
+							callback.call(this, data);
+						}
+					},
+					error: function (err, err1, err2) {
+						console.log("ajax请求发生异常，请仔细检查请求url是否正确");
+						//console.log(err.responseText);
+						if (err && err.readyState && err.readyState == '4') {
+							var sessionstatus = err.getResponseHeader("session-status");
+							if (sessionstatus == "timeout") {
+								//如果超时就处理 ，指定要跳转的页面
+								toastr.info("会话超时! 请重新登录")
+								window.top.location = document.URL;
+								return;
+							}
+							else if (err1 == "parsererror") {
+								toastr.error(err.responseText);
+								return;
+							} else {
+								toastr.error({
+									text: JSON.stringify(err) + '<br/>err1:' + JSON.stringify(err1) + '<br/>err2:' + JSON.stringify(err2),
+									large: true
+								});
+								return;
+							}
+						}
+						toastr.error("网络错误, 请稍后再试!");
+					}
+				}).done(function (responseText) {
+					// console.log(responseText);
+					//页面超时跳转到首页
+					try {
+						if (typeof responseText == "object") {
+							return;
+						}
+					} catch (e) {
+						//console.log(e);
+					}
+					if (responseText.startWith("<!--login_page_identity-->")) {
+						toastr.info("会话超时! 请重新登录")
+						window.top.location = document.URL;
+					} else {
+						toastr.error(responseText);
+					}
+				});
+				return result;
+			}
+		}
+
+	</script>
+</div>
