@@ -1,11 +1,9 @@
 package com.factory.boot.controller;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.factory.boot.config.AjaxJson;
 import com.factory.boot.config.BaseController;
 import com.factory.boot.config.ExceptionUtil;
 import com.factory.boot.util.ObjectUtils;
-import com.factory.boot.util.yunxin163.HttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -37,7 +35,6 @@ public class WxController extends BaseController {
                ajaxJson.setMsg("缺少参数，请检查参数是否正确！");
                return ajaxJson;
            }
-            HttpClientUtil
         } catch (Exception e) {
             log.error(ExceptionUtil.getExceptionAllinformation(e, getClass().getName()));
             ajaxJson.setSuccess(false);
