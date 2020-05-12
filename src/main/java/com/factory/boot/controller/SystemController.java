@@ -53,12 +53,12 @@ public class SystemController extends BaseController {
 				DigestUtils.md5DigestAsHex(form_password.getBytes())));
 
 		if (null == user || StringUtils.isBlank(user.getId())) {
-			ajaxJson.setSuccess(false);
+			ajaxJson.setCode(AjaxJson.ERROR_CODE);
 			ajaxJson.setMsg("用户名或密码错误");
 		}
 
 		if (null == user || StringUtils.isBlank(user.getId())) {
-			ajaxJson.setSuccess(false);
+			ajaxJson.setCode(AjaxJson.ERROR_CODE);
 			ajaxJson.setMsg("用户名或密码错误");
 		} else {
 			this.getRequest().getSession().setAttribute("login_user", user);

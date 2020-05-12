@@ -23,34 +23,42 @@ import lombok.experimental.Accessors;
  * @Accessors 是否支持链式调用
  * @EqualsAndHashCode 是否生成hashcode,equals方法
  */
-@TableName("user")
+@TableName("t_user")
 public class User extends BaseEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	private String username;
+
 	private String password;
-	private String money;
+
 	private String name;
-	private String remark;
+
 	private String phone;
-	private String type;
+
+	@TableField("openId")
+	private String openId;
+
+	@TableField("unionId")
+	private String unionId;
+
+	private Integer type;
 
 	/**
-	 * 系统用户
+	 * 老板
 	 */
-	public static final String TYPE_ONE = "1";
+	public static final Integer TYPE_ONE=1;
+
 	/**
-	 * 主办方
+	 * 财务
 	 */
-	public static final String TYPE_TWO = "2";
+	public static final Integer TYPE_TWO=2;
 
-	@TableField(exist = false)
-	private List<Object> logoimg;
+	/**
+	 * 工人
+	 */
+	public static final Integer TYPE_THREE=3;
 
-	public void setLogoimg(List<Object> logoimg) {
-		if(ObjectUtils.isEmpty(logoimg)){
-			logoimg = new ArrayList<>();
-		}
-		this.logoimg = logoimg;
-	}
+
+
 }

@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
 	@ResponseBody
 	public AjaxJson exceptionHandler() {
 		AjaxJson ajaxJson = new AjaxJson();
-		ajaxJson.setSuccess(false);
+		ajaxJson.setCode(AjaxJson.ERROR_CODE);
 		ajaxJson.setMsg("系统出错啦! 请稍后再试");
 		return ajaxJson;
 	}

@@ -34,6 +34,12 @@ public class BaseEntity implements Serializable {
 	private Date createTime;
 
 	/**
+	 * 更新时间
+	 */
+	@TableField(value = "updateTime", fill = FieldFill.INSERT)
+	private Date updateTime;
+
+	/**
 	 * 删除标记
 	 */
 	@TableField(value = "isDelete", fill = FieldFill.INSERT)
