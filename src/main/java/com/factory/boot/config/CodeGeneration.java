@@ -34,26 +34,26 @@ public class CodeGeneration {
 	/**
 	 * 要生成的表名
 	 */
-	private static String[] DBNAME = new String[] { "em_picture" };
+	private static String[] DBNAME = new String[] { "t_menu" };
 
 	/**
 	 * 需要去掉的表前缀明细,和 DBNAME 对应
 	 */
-	private static String[] TABLEPREFIX = new String[] { "em_" };
+	private static String[] TABLEPREFIX = new String[] { "t_" };
 
 	/**
 	 * 文件输出的路径
 	 */
-	private static String OUTPUTDIR = "E:/代码";
+	private static String OUTPUTDIR = "C:/代码";
 
-	// @Test
+	 @Test
 	public void generateCode() {
 		generateByTables(PRENAME, DBNAME);
 	}
 
 	private void generateByTables(String name, String... tableNames) {
 		GlobalConfig config = new GlobalConfig();
-		String dbUrl = "jdbc:mysql://192.168.4.2:3306/erma";
+		String dbUrl = "jdbc:mysql://47.104.252.174:3306/factory";
 		DataSourceConfig dataSourceConfig = new DataSourceConfig();
 		dataSourceConfig.setDbType(DbType.MYSQL).setUrl(dbUrl).setUsername("root").setPassword("123456")
 				.setDriverName("com.mysql.jdbc.Driver");
@@ -62,10 +62,10 @@ public class CodeGeneration {
 				// .setCapitalMode(true) // 全局大写命名 ORACLE 注意
 				.setEntityLombokModel(true).setTablePrefix(TABLEPREFIX).setDbColumnUnderline(true)
 				.setNaming(NamingStrategy.underline_to_camel).setInclude(tableNames)// 修改替换成你需要的表名，多个表名传数组
-				.setSuperControllerClass("com.mida.boot.config.BaseController")
-				.setSuperEntityClass("com.mida.boot.config.BaseEntity")
-				.setSuperMapperClass("com.mida.boot.config.SuperMapper")
-				.setSuperEntityColumns(new String[] { "id", "createTime", "isDelete" });
+				.setSuperControllerClass("com.factory.boot.config.BaseController")
+				.setSuperEntityClass("com.factory.boot.config.BaseEntity")
+				.setSuperMapperClass("com.factory.boot.config.SuperMapper")
+				.setSuperEntityColumns(new String[] { "id", "createTime","updateTime","isDelete" });
 
 		config.setActiveRecord(false).setAuthor("").setOutputDir(OUTPUTDIR).setFileOverride(true)
 

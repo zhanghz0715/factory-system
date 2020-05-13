@@ -52,21 +52,22 @@ public class SpringMVCFilter implements Filter {
                 req.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort());
 
         // 如果是静态资源文件放行
-        if (path.contains("front") || path.contains("static") || path.contains("swagger")||path.contains("/img/")||path.contains("/qrCode/")
-                || path.contains("api-docs")) {
+        if (path.contains("static") || path.contains("swagger")||path.contains("/img/")) {
             chain.doFilter(request, response);
             return;
         }
 
-        // 获取公共链接-登陆前
+        // 判断那些链接需要登录才行
         List<String> urlList = ResourcesUtil.getkeyList();
-        // 检验URL是否在公共链接中
+        boolean isPass = true;
         for (String url : urlList) {
             if (path.contains(url)) {
-                // 放行
-                chain.doFilter(request, response);
-                return;
+                isPass = false;
             }
+        }
+        if(isPass){
+            chain.doFilter(request, response);
+            return;
         }
 
         if (session != null) {
