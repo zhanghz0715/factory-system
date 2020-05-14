@@ -1,14 +1,13 @@
 package com.factory.boot.model;
 
-import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.factory.boot.config.BaseEntity;
-
-import com.baomidou.mybatisplus.annotations.Version;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -29,18 +28,22 @@ public class Product extends BaseEntity {
     /**
      * 生产日期
      */
+    @TableField("product_date")
     private Date productDate;
     /**
      * 柜号
      */
+    @TableField("cabinet_number")
     private String cabinetNumber;
     /**
      * 产品型号ID
      */
+    @TableField("type_id")
     private String typeId;
     /**
      * 模具ID
      */
+    @TableField("mould_id")
     private String mouldId;
     /**
      * 长度
@@ -49,10 +52,12 @@ public class Product extends BaseEntity {
     /**
      * 理论支重
      */
+    @TableField("theory_weight")
     private Double theoryWeight;
     /**
      * 平均支重
      */
+    @TableField("average_weight")
     private Double averageWeight;
     /**
      * 支重
@@ -65,7 +70,20 @@ public class Product extends BaseEntity {
     /**
      * 重量
      */
+    @TableField("total_weight")
     private Double totalWeight;
+
+    /**
+     * 产品型号名称
+     */
+    @TableField(exist = false)
+    private String typeName;
+
+    /**
+     * 模具名称
+     */
+    @TableField(exist = false)
+    private String mouldName;
 
 
 }

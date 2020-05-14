@@ -53,7 +53,7 @@ public class MenuController extends BaseController {
             if (ObjectUtils.isEmpty(user)) {
                 return new AjaxJson("参数错误，请检查参数是否正确！");
             }
-            List<Menu> menuList = menuService.selectList(new EntityWrapper<Menu>().eq("type", user.getType()));
+            List<Menu> menuList = menuService.selectList(new EntityWrapper<Menu>().eq("type", user.getType()).orderBy("sort",true));
             ajaxJson.setData(menuList);
             return ajaxJson;
 
