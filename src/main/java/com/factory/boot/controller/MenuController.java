@@ -3,6 +3,7 @@ package com.factory.boot.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.factory.boot.config.AjaxJson;
+import com.factory.boot.config.BaseController;
 import com.factory.boot.config.ExceptionUtil;
 import com.factory.boot.model.Menu;
 import com.factory.boot.model.User;
@@ -13,9 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
-import com.factory.boot.config.BaseController;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
