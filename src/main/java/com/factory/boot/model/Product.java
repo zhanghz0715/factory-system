@@ -11,10 +11,10 @@ import java.util.Date;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
- * @author 
+ * @author
  * @since 2020-05-14
  */
 @Data
@@ -30,6 +30,29 @@ public class Product extends BaseEntity {
      */
     @TableField("product_date")
     private Date productDate;
+    /**
+     * 机台
+     */
+    private String machine;
+    /**
+     * 班长
+     */
+    private String monitor;
+    /**
+     * 开机/中断
+     */
+    @TableField("open_machine")
+    private String openMachine;
+    /**
+     * 前调
+     */
+    @TableField("top_note")
+    private String topNote;
+    /**
+     * 后调
+     */
+    @TableField("post_note")
+    private String postNote;
     /**
      * 柜号
      */

@@ -1,5 +1,6 @@
 package com.factory.boot.model;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.factory.boot.config.BaseEntity;
 
@@ -41,6 +42,12 @@ public class Type extends BaseEntity {
      * 理论支重
      */
     private Double weight;
+
+    /**
+     * 历史平均支重
+     */
+    @TableField(exist = false)
+    private Double averageWeight;
 
 
 }

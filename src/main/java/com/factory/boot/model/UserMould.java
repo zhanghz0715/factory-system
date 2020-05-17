@@ -1,6 +1,8 @@
 package com.factory.boot.model;
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.factory.boot.config.BaseEntity;
 
@@ -29,11 +31,19 @@ public class UserMould extends BaseEntity {
     /**
      * 生产日期
      */
+    @TableField("product_date")
     private Date productDate;
+
+    /**
+     * 供应商
+     */
+    private String supplier;
     /**
      * 模具Id
      */
+    @TableField("mould_id")
     private String mouldId;
+
     /**
      * 班组
      */
@@ -53,6 +63,7 @@ public class UserMould extends BaseEntity {
     /**
      * 生产重量
      */
+    @TableField("total_weight")
     private Double totalWeight;
     /**
      * 氧化
