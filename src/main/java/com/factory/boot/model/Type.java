@@ -38,6 +38,13 @@ public class Type extends BaseEntity {
      * 长度
      */
     private Double length;
+
+    /**
+     * 工厂ID
+     */
+    @TableField("factory_id")
+    private String factoryId;
+
     /**
      * 理论支重
      */

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 
 /**
  * <p>
@@ -110,6 +112,7 @@ public class ProductController extends BaseController {
             if (ObjectUtils.isEmpty(product1)) {
                 return new AjaxJson("参数错误，请检查参数是否正确！");
             }
+            product.setUpdateTime(new Date());
             productService.updateById(product);
         } catch (Exception e) {
             log.error(ExceptionUtil.getExceptionAllinformation(e, getClass().getName()));

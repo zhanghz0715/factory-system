@@ -44,6 +44,12 @@ public class User extends BaseEntity {
 
 	private Integer type;
 
+	@TableField("factory_id")
+	private String factoryId;
+
+	@TableField(exist = false)
+	private String typeName;
+
 	/**
 	 * 老板
 	 */
