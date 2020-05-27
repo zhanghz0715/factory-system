@@ -6,14 +6,17 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.factory.boot.config.AjaxJson;
 import com.factory.boot.config.BaseController;
 import com.factory.boot.config.ExceptionUtil;
+import com.factory.boot.model.Image;
 import com.factory.boot.model.Mould;
 import com.factory.boot.model.Product;
 import com.factory.boot.model.Type;
+import com.factory.boot.service.ImageService;
 import com.factory.boot.service.MouldService;
 import com.factory.boot.service.ProductService;
 import com.factory.boot.service.TypeService;
 import com.factory.boot.util.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -47,6 +54,9 @@ public class ProductController extends BaseController {
     @Autowired
     private MouldService mouldService;
 
+    @Autowired
+    private ImageService imageService;
+
 
     @PostMapping("/page")
     public AjaxJson getPage(Page<Product> page, String productDate, String typeId) {
@@ -60,16 +70,51 @@ public class ProductController extends BaseController {
                 entityWrapper.eq("type_id", typeId);
             }
             page = productService.selectPage(page, entityWrapper.orderBy("product_date", false));
+            List<String> typeIdList = new ArrayList<>();
+            List<String> mouldIdList = new ArrayList<>();
+            List<String> imageIdList = new ArrayList<>();
             if (!ObjectUtils.isEmpty(page) && !ObjectUtils.isEmpty(page.getRecords())) {
                 for (Product product1 : page.getRecords()) {
-                    Type type = typeService.selectById(product1.getTypeId());
-                    Mould mould = mouldService.selectById(product1.getMouldId());
-                    product1.setTypeName(type.getName());
-                    product1.setMouldName(mould.getName());
+                    if(!typeIdList.contains(product1.getTypeId())){
+                        typeIdList.add(product1.getTypeId());
+                    }
+                    if(!typeIdList.contains(product1.getMouldId())){
+                        mouldIdList.add(product1.getMouldId());
+                    }
                 }
-                ajaxJson.setData(page);
-            }
+                List<Type> typeList = typeService.selectList(new EntityWrapper<Type>().in("id",typeIdList));
+                Map<String,List<Type>> typeMap = typeList.stream().collect(Collectors.groupingBy(type->type.getId()));
+                List<Mould> mouldList = mouldService.selectList(new EntityWrapper<Mould>().in("id", mouldIdList));
+                for(Mould mould:mouldList){
+                    if(!ObjectUtils.isEmpty(mould.getImageId())&&!typeIdList.contains(mould.getImageId())){
+                        imageIdList.add(mould.getImageId());
+                    }
+                }
+                Map<String,List<Mould>> mouldMap = mouldList.stream().collect(Collectors.groupingBy(mould->mould.getId()));
+                List<Image> imageList = imageService.selectList(new EntityWrapper<Image>().in("id",imageIdList));
+                Map<String,List<Image>> imageMap = imageList.stream().collect(Collectors.groupingBy(image->image.getId()));
+                for (Product product1 : page.getRecords()) {
+                    List<Type> typeList1 = typeMap.get(product1.getTypeId());
+                    if(!ObjectUtils.isEmpty(typeList1)&&typeList1.size()>0){
+                        product1.setTypeName(typeList1.get(0).getName());
+                    }
 
+                    List<Mould> mouldList1 = mouldMap.get(product1.getMouldId());
+                    if(!ObjectUtils.isEmpty(mouldList1)&&mouldList1.size()>0){
+                        product1.setMouldName(mouldList1.get(0).getName());
+                        if(!ObjectUtils.isEmpty(mouldList1.get(0).getImageId())){
+                            List<Image> imageList1 = imageMap.get(mouldList1.get(0).getImageId());
+                            if(!ObjectUtils.isEmpty(imageList1)){
+                                String base64String = Base64.encodeBase64String(imageList1.get(0).getImage());
+                                product1.setImage("data:image/png;base64,"+base64String);
+                            }
+                        }
+
+
+                    }
+                }
+            }
+            ajaxJson.setData(page);
         } catch (Exception e) {
             log.error(ExceptionUtil.getExceptionAllinformation(e, getClass().getName()));
             return new AjaxJson("服务器错误，请稍后重试");

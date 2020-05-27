@@ -34,7 +34,7 @@ public class CodeGeneration {
 	/**
 	 * 要生成的表名
 	 */
-	private static String[] DBNAME = new String[] { "t_image" };
+	private static String[] DBNAME = new String[] { "t_material" };
 
 	/**
 	 * 需要去掉的表前缀明细,和 DBNAME 对应

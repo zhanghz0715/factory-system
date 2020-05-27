@@ -108,5 +108,11 @@ public class Product extends BaseEntity {
     @TableField(exist = false)
     private String mouldName;
 
+    /**
+     * 模具图片
+     */
+    @TableField(exist = false)
+    private String image;
+
 
 }
