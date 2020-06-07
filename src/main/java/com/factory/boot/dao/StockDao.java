@@ -1,6 +1,6 @@
 package com.factory.boot.dao;
 
-import com.factory.boot.model.Mould;
+import com.factory.boot.model.Stock;
 import com.factory.boot.config.SuperMapper;
 import org.apache.ibatis.session.RowBounds;
 
@@ -13,12 +13,11 @@ import java.util.Map;
  * </p>
  *
  * @author 
- * @since 2020-05-14
+ * @since 2020-05-31
  */
-public interface MouldDao extends SuperMapper<Mould> {
+public interface StockDao extends SuperMapper<Stock> {
 
 
-    List<Map> findPage(RowBounds rowBounds, Map<String,Object> params);
-
+    List<Map> findPage(RowBounds rowBounds,Map<String,Object> params);
 
 }

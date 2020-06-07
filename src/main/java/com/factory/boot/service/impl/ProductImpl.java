@@ -28,4 +28,9 @@ public class ProductImpl extends ServiceImpl<ProductDao, Product> implements Pro
     public List<Map> getAverageWeight() {
         return baseMapper.getAverageWeight();
     }
+
+    @Override
+    public List<Map> sumStatistics(Map<String, Object> params) {
+        return baseMapper.sumStatistics(params);
+    }
 }

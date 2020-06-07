@@ -6,4 +6,43 @@
       SELECT type_id as typeId,SUM(weight)/SUM(length) as averageWeight from t_product GROUP BY type_id
     </select>
 
+
+    <select id="sumStatistics" parameterType="map" resultType="map" >
+        SELECT
+          factory_id as factoryId,sum(weight) as weight
+        from t_product
+        <where>
+            isDelete = '0'
+            <if test="factoryId !=null and  factoryId !=''">
+                and factory_id = #{factoryId}
+            </if>
+            <if test="startDate !=null and startDate !=''">
+                and createTime &gt;= #{startDate}
+            </if>
+            <if test="endDate !=null and endDate !=''">
+                and createTime &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="stockStatistics" parameterType="map" resultType="map" >
+        SELECT
+          a.type_id  as typeId,b.name,,sum(totalWeight) as totalWeight,sum(count) as count
+        from t_product a
+        LEFT  JOIN t_type b  on a.type_id = b.id
+        <where>
+            a.isDelete = '0'
+            <if test="factoryId !=null and  factoryId !=''">
+                and a.factory_id = #{factoryId}
+            </if>
+            <if test="startDate !=null and startDate !=''">
+                and a.product_date &gt;= #{startDate}
+            </if>
+            <if test="endDate !=null and endDate !=''">
+                and a.product_date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
 </mapper>

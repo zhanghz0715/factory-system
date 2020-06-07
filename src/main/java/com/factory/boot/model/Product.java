@@ -30,6 +30,9 @@ public class Product extends BaseEntity {
      */
     @TableField("product_date")
     private Date productDate;
+
+    @TableField("factory_id")
+    private String factoryId;
     /**
      * 机台
      */

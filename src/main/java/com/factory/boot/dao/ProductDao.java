@@ -22,4 +22,14 @@ public interface ProductDao extends SuperMapper<Product> {
      */
     List<Map> getAverageWeight();
 
+
+    List<Map> sumStatistics(Map<String,Object> params);
+
+    /**
+     * 库存统计
+     * @param params
+     * @return
+     */
+    List<Map> stockStatistics(Map<String,Object> params);
+
 }

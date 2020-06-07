@@ -24,6 +24,8 @@ public interface ProductService extends IService<Product> {
      */
     List<Map> getAverageWeight();
 
+    List<Map> sumStatistics(Map<String,Object> params);
+
 
 
 

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.factory.boot.dao.MouldDao">
+<mapper namespace="com.factory.boot.dao.StockDao">
 
     <select id="findPage" parameterType="map" resultType="map">
         SELECT
-          a.id,a.name,a.supplier,b.name as typeName,a.status,a.oxidation,c.image
-          FROM t_mould a
+          a.id,a.type_id as typeId,b.name,b.weight as theoryWeight,a.count,a.weight
+        FROM t_stock a
         LEFT JOIN t_type b on a.type_id = b.id
-        LEFT JOIN t_image c on a.image_id = c.id
         <where>
             a.isDelete = '0'
-            <if test="factoryId !=null and  factoryId !=''">
+            <if test="factoryId !=null and factoryId !=''">
                 and a.factory_id = #{factoryId}
             </if>
+            <if test="name !=null and name !=''">
+                and b.name like concat('%',#{name},'%')
+            </if>
         </where>
-        ORDER BY a.status asc, a.createTime desc
-
+        ORDER BY a.createTime desc
     </select>
-
 
 </mapper>

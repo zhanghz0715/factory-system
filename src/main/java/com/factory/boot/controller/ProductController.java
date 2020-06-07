@@ -59,7 +59,7 @@ public class ProductController extends BaseController {
 
 
     @PostMapping("/page")
-    public AjaxJson getPage(Page<Product> page, String productDate, String typeId) {
+    public AjaxJson getPage(Page<Product> page, String productDate, String typeId,String mouldId,String factoryId) {
         AjaxJson ajaxJson = new AjaxJson();
         try {
             EntityWrapper entityWrapper = new EntityWrapper<Product>();
@@ -68,6 +68,12 @@ public class ProductController extends BaseController {
             }
             if (!ObjectUtils.isEmpty(typeId)) {
                 entityWrapper.eq("type_id", typeId);
+            }
+            if (!ObjectUtils.isEmpty(factoryId)) {
+                entityWrapper.eq("factory_id", factoryId);
+            }
+            if (!ObjectUtils.isEmpty(mouldId)) {
+                entityWrapper.eq("mould_id", mouldId);
             }
             page = productService.selectPage(page, entityWrapper.orderBy("product_date", false));
             List<String> typeIdList = new ArrayList<>();
@@ -171,7 +177,7 @@ public class ProductController extends BaseController {
     public AjaxJson save(Product product, String list) {
         AjaxJson ajaxJson = new AjaxJson();
         try {
-            if (ObjectUtils.isEmpty(list)) {
+            if (ObjectUtils.isEmpty(list)||ObjectUtils.isEmpty(product)) {
                 return new AjaxJson("缺少参数，请检查参数是否正确！");
             }
             JSONArray jsonArray = new JSONArray(list);

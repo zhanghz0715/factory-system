@@ -1,9 +1,8 @@
 package com.factory.boot.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.factory.boot.model.Mould;
+import com.factory.boot.model.Stock;
 import com.baomidou.mybatisplus.service.IService;
-import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 import java.util.Map;
@@ -14,12 +13,12 @@ import java.util.Map;
  * </p>
  *
  * @author 
- * @since 2020-05-14
+ * @since 2020-05-31
  */
-public interface MouldService extends IService<Mould> {
+public interface StockService extends IService<Stock> {
 
 
-    Page<Map> findPage(Page<Map> page, Map<String,Object> params);
+    Page<Map> getPage(Page<Map> page, Map<String,Object> params);
 
 
 }
