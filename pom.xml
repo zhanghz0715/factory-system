@@ -31,7 +31,7 @@
 		<alibaba-fastjson>1.1.41</alibaba-fastjson>
 		<commons-io>2.5</commons-io>
 		<commons-net>3.3</commons-net>
-		<commons-beanutils>1.9.2</commons-beanutils>
+		<commons-beanutils>1.9.4</commons-beanutils>
 		<commons-httpclient>3.1</commons-httpclient>
 		<swagger2-version>2.2.2</swagger2-version>
 		<ali-sdk-core-version>3.3.1</ali-sdk-core-version>
