@@ -6,23 +6,18 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.factory.boot.config.AjaxJson;
 import com.factory.boot.config.BaseController;
 import com.factory.boot.config.ExceptionUtil;
-import com.factory.boot.model.*;
+import com.factory.boot.model.Sale;
 import com.factory.boot.service.SaleService;
 import com.factory.boot.service.TypeService;
 import com.factory.boot.util.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -66,23 +61,6 @@ public class SaleController extends BaseController{
                 entityWrapper.eq("is_arrears", isArrears);
             }
             page = saleService.selectPage(page, entityWrapper.orderBy("createTime", false));
-            List<String> typeIdList = new ArrayList<>();
-            if (!ObjectUtils.isEmpty(page) && !ObjectUtils.isEmpty(page.getRecords())) {
-                for (Sale sale : page.getRecords()) {
-                    if(!typeIdList.contains(sale.getTypeId())){
-                        typeIdList.add(sale.getTypeId());
-                    }
-
-                }
-                List<Type> typeList = typeService.selectList(new EntityWrapper<Type>().in("id",typeIdList));
-                Map<String,List<Type>> typeMap = typeList.stream().collect(Collectors.groupingBy(type->type.getId()));
-                for (Sale sale : page.getRecords()) {
-                    List<Type> typeList1 = typeMap.get(sale.getTypeId());
-                    if(!ObjectUtils.isEmpty(typeList1)&&typeList1.size()>0){
-                        sale.setTypeName(typeList1.get(0).getName());
-                    }
-                }
-            }
             ajaxJson.setData(page);
 
         } catch (Exception e) {

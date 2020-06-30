@@ -41,21 +41,12 @@ public class Sale extends BaseEntity {
     private String saleNumber;
     @TableField("factory_id")
     private String factoryId;
-    @TableField("type_id")
-    private String typeId;
-
-    @TableField(exist = false)
-    private String typeName;
 
     private Double weight;
     /**
      * 销售数量
      */
     private Double count;
-    /**
-     * 单价
-     */
-    private Double price;
     /**
      * 总价
      */

@@ -86,6 +86,11 @@ public class Mould extends BaseEntity {
     private String image;
 
     /**
+     * 备注
+     */
+    private String remark;
+
+    /**
      * 正常
      */
     public static final Integer STATUS_ONE=1;

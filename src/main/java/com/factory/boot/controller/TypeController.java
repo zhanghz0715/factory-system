@@ -58,6 +58,24 @@ public class TypeController extends BaseController {
                 entityWrapper.like("name", name);
             }
             page = typeService.selectPage(page, entityWrapper.orderBy("createTime", false));
+            List<Map> mapList = productService.getAverageWeight();
+            Map<String, Object> typeMap = new HashMap<>();
+            if (!ObjectUtils.isEmpty(mapList) && mapList.size() > 0) {
+                for (Map map : mapList) {
+                    String typeId = (String) map.get("typeId");
+                    typeMap.put(typeId, map.get("averageWeight"));
+                }
+
+            }
+            if(page.getRecords().size()>0){
+                for (Type type : page.getRecords()) {
+                    if (!ObjectUtils.isEmpty(typeMap.get(type.getId()))) {
+                        Double averageWeight = (Double) typeMap.get(type.getId());
+                        type.setAverageWeight(Double.parseDouble(String.format("%.2f", type.getLength() * averageWeight)));
+                    }
+                }
+            }
+
             ajaxJson.setData(page);
 
         } catch (Exception e) {
