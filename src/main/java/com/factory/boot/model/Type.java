@@ -56,5 +56,8 @@ public class Type extends BaseEntity {
     @TableField(exist = false)
     private Double averageWeight;
 
+    @TableField(exist = false)
+    private Integer stock;
+
 
 }

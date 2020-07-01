@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.factory.boot.config.AjaxJson;
 import com.factory.boot.config.BaseController;
 import com.factory.boot.config.ExceptionUtil;
+import com.factory.boot.model.Stock;
 import com.factory.boot.model.Type;
 import com.factory.boot.model.User;
 import com.factory.boot.service.ProductService;
+import com.factory.boot.service.StockService;
 import com.factory.boot.service.TypeService;
 import com.factory.boot.util.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,9 @@ public class TypeController extends BaseController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private StockService stockService;
+
 
     @PostMapping("/page")
     public AjaxJson getPage(Page<Type> page, String factoryId,String name) {
@@ -67,11 +72,21 @@ public class TypeController extends BaseController {
                 }
 
             }
+            List<Stock> stockList = stockService.selectList(new EntityWrapper<Stock>());
+            Map<String, Integer> stockMap = new HashMap<>();
+            stockList.forEach(stock -> {
+                stockMap.put(stock.getTypeId(),stock.getCount());
+            });
             if(page.getRecords().size()>0){
                 for (Type type : page.getRecords()) {
                     if (!ObjectUtils.isEmpty(typeMap.get(type.getId()))) {
                         Double averageWeight = (Double) typeMap.get(type.getId());
                         type.setAverageWeight(Double.parseDouble(String.format("%.2f", type.getLength() * averageWeight)));
+                    }
+                    if (!ObjectUtils.isEmpty(stockMap.get(type.getId()))) {
+                        type.setStock(stockMap.get(type.getId()));
+                    }else{
+                        type.setStock(0);
                     }
                 }
             }

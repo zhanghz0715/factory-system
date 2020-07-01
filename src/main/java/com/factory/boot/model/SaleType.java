@@ -31,6 +31,9 @@ public class SaleType extends BaseEntity {
     @TableField("type_id")
     private String typeId;
     private Double weight;
+    @TableField("total_weight")
+    private Double totalWeight;
+    private Double stock;
     private Integer count;
     private Double price;
     @TableField("total_price")
