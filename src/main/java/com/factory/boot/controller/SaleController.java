@@ -7,10 +7,14 @@ import com.factory.boot.config.AjaxJson;
 import com.factory.boot.config.BaseController;
 import com.factory.boot.config.ExceptionUtil;
 import com.factory.boot.model.Sale;
+import com.factory.boot.model.SaleType;
 import com.factory.boot.service.SaleService;
+import com.factory.boot.service.SaleTypeService;
 import com.factory.boot.service.TypeService;
 import com.factory.boot.util.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +41,7 @@ public class SaleController extends BaseController{
     private SaleService saleService;
 
     @Autowired
-    private TypeService typeService;
+    private SaleTypeService saleTypeService;
 
 
     @PostMapping("/page")
@@ -74,10 +78,10 @@ public class SaleController extends BaseController{
 
 
     @PostMapping("/save")
-    public AjaxJson save(Sale sale) {
+    public AjaxJson save(Sale sale,String list) {
         AjaxJson ajaxJson = new AjaxJson();
         try {
-            if (ObjectUtils.isEmpty(sale) || ObjectUtils.isEmpty(sale.getFactoryId())) {
+            if (ObjectUtils.isEmpty(sale) || ObjectUtils.isEmpty(sale.getFactoryId())||ObjectUtils.isEmpty(list)) {
                 return new AjaxJson("缺少参数，请检查参数是否正确！");
             }
             Date date = new Date();
@@ -98,6 +102,42 @@ public class SaleController extends BaseController{
                 }
             }
             saleService.insert(sale);
+            JSONArray jsonArray = new JSONArray(list);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                JSONArray pages = jsonObject.optJSONArray("pages");
+                SaleType saleType = new SaleType();
+                saleType.setSaleId(sale.getId());
+                for (int j = 0; j < pages.length(); j++) {
+                    JSONObject page = pages.getJSONObject(j);
+                    switch (page.optString("name")) {
+                        case "产品":
+                            saleType.setTypeId(page.optString("id"));
+                            break;
+                        case "支数":
+                            saleType.setCount(page.optInt("value"));
+                            break;
+                        case "总重":
+                            saleType.setTotalWeight(page.optDouble("value"));
+                            break;
+                        case "实际支重":
+                            saleType.setWeight(page.optDouble("value"));
+                            break;
+                        case "单价":
+                            saleType.setPrice(page.optDouble("value"));
+                            break;
+                        case "总价":
+                            saleType.setTotalPrice(page.optDouble("value"));
+                            break;
+                        case "库存":
+                            saleType.setStock(page.optDouble("value"));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                saleTypeService.insert(saleType);
+            }
         } catch (Exception e) {
             log.error(ExceptionUtil.getExceptionAllinformation(e, getClass().getName()));
             return new AjaxJson("服务器错误，请稍后重试");
@@ -130,6 +170,7 @@ public class SaleController extends BaseController{
                 }
             }
             saleService.updateById(sale);
+
         } catch (Exception e) {
             log.error(ExceptionUtil.getExceptionAllinformation(e, getClass().getName()));
             return new AjaxJson("服务器错误，请稍后重试");
