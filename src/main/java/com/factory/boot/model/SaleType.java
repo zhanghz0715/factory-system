@@ -30,6 +30,8 @@ public class SaleType extends BaseEntity {
     private String saleId;
     @TableField("type_id")
     private String typeId;
+    @TableField(exist = false)
+    private String typeName;
     private Double weight;
     @TableField("total_weight")
     private Double totalWeight;

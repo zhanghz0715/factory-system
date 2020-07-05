@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.factory.boot.dao.SaleTypeDao">
 
+
+    <select id="findList" parameterType="map" resultType="com.factory.boot.model.SaleType">
+        SELECT
+          a.id as saleTypeId,
+          a.type_id as typeId,
+          b.name as typeName,
+          a.weight,
+          a.count,
+          a.price,
+          a.totalPrice,
+          a.totalWeight,
+          a.stock
+        from t_sale_type a
+        LEFT  JOIN  t_typ b on a.type_id = b.id
+        <where>
+            a.isDelete = '0'
+            <if test="saleId !=null">
+                and a.sale_id = #{saleId}
+            </if>
+        </where>
+
+
+    </select>
+
 </mapper>
