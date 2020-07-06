@@ -11,11 +11,11 @@
           a.weight,
           a.count,
           a.price,
-          a.totalPrice,
-          a.totalWeight,
+          a.total_price as totalPrice,
+          a.total_weight as totalWeight,
           a.stock
         from t_sale_type a
-        LEFT  JOIN  t_typ b on a.type_id = b.id
+        LEFT  JOIN  t_type b on a.type_id = b.id
         <where>
             a.isDelete = '0'
             <if test="saleId !=null">

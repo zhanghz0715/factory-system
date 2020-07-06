@@ -232,7 +232,7 @@ public class SaleController extends BaseController {
             for (int i = 0; i < saleTypeList.size(); i++) {
                 SaleType saleType = saleTypeList.get(i);
                 Map<String, Object> tempMap = new HashMap<>();
-                tempMap.put("id", i);
+                tempMap.put("id", String.valueOf(i));
                 tempMap.put("open", false);
                 tempMap.put("saleTypeId", saleType.getId());
                 tempMap.put("name", saleType.getTypeName());

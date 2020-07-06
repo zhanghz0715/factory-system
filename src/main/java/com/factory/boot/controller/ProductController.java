@@ -191,6 +191,7 @@ public class ProductController extends BaseController {
                 product1.setOpenMachine(product.getOpenMachine());
                 product1.setTopNote(product.getTopNote());
                 product1.setPostNote(product.getPostNote());
+                product1.setFactoryId(product.getFactoryId());
                 for (int j = 0; j < pages.length(); j++) {
                     JSONObject page = pages.getJSONObject(j);
                     switch (page.optString("name")) {
