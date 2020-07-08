@@ -198,8 +198,10 @@ public class SaleController extends BaseController {
             if (ObjectUtils.isEmpty(sale.getCollectMoney())) {
                 sale.setIsArrears(1);
             } else {
-                if (sale.getCollectMoney() > sale.getTotalPrice()) {
+                if (sale.getCollectMoney() >= sale.getTotalPrice()) {
                     sale.setIsArrears(0);
+                }else{
+                    sale.setIsArrears(1);
                 }
             }
             saleService.updateById(sale);

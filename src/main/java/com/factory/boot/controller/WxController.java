@@ -87,13 +87,7 @@ public class WxController extends BaseController {
             String openId = jsonObject.getString("openid");
             //默认为工人
             if(ObjectUtils.isEmpty(user)){
-                User user1 = new User();
-                user1.setUsername(username);
-                user1.setPassword(CheckSumBuilder.getMD5(password));
-                user1.setOpenId(openId);
-                user1.setType(User.TYPE_THREE);
-                userService.insert(user1);
-                ajaxJson.setData(user1);
+                return new AjaxJson("账号不存在，授权失败！");
             }else{
                 if(!CheckSumBuilder.getMD5(password).equals(user.getPassword())){
                     return new AjaxJson("密码错误，授权失败！");
