@@ -21,6 +21,7 @@
                 and factory_id = #{factoryId}
             </if>
         </where>
+        group by type
     </select>
 
 

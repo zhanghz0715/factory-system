@@ -20,6 +20,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +43,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/product")
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class ProductController extends BaseController {
 
 
@@ -192,6 +194,7 @@ public class ProductController extends BaseController {
                 product1.setTopNote(product.getTopNote());
                 product1.setPostNote(product.getPostNote());
                 product1.setFactoryId(product.getFactoryId());
+                product1.setIsStatistics(0);
                 for (int j = 0; j < pages.length(); j++) {
                     JSONObject page = pages.getJSONObject(j);
                     switch (page.optString("name")) {

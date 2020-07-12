@@ -17,6 +17,7 @@ import com.factory.boot.util.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/mould")
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class MouldController extends BaseController {
 
     @Autowired

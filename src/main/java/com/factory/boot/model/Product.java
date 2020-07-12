@@ -117,5 +117,8 @@ public class Product extends BaseEntity {
     @TableField(exist = false)
     private String image;
 
+    @TableField("is_statistics")
+    private Integer isStatistics;
+
 
 }
