@@ -28,7 +28,7 @@
 		<mybatis-plus-boot-starter>2.3</mybatis-plus-boot-starter>
 		<!-- 自动getter setter construct -->
 		<lombok>1.18.8</lombok>
-		<alibaba-fastjson>1.1.41</alibaba-fastjson>
+		<alibaba-fastjson>1.2.83</alibaba-fastjson>
 		<commons-io>2.5</commons-io>
 		<commons-net>3.3</commons-net>
 		<commons-beanutils>1.9.2</commons-beanutils>
