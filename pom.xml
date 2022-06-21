@@ -23,7 +23,7 @@
 		<!--数据库连接池 -->
 		<druid.version>1.1.10</druid.version>
 		<!--mysql连接驱动 -->
-		<mysql-connector-java>5.1.46</mysql-connector-java>
+		<mysql-connector-java>8.0.28</mysql-connector-java>
 		<!--mybatis-plus 插件，只做mybatis增强，不做修改 -->
 		<mybatis-plus-boot-starter>2.3</mybatis-plus-boot-starter>
 		<!-- 自动getter setter construct -->
